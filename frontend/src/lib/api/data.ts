@@ -19,9 +19,9 @@ export interface FetchDataProgress {
 function createAbortError(signal?: AbortSignal): Error {
 	if (signal?.reason instanceof Error) return signal.reason;
 	try {
-		return new DOMException('The operation was aborted', 'AbortError');
+		return new DOMException('La operación fue abortada', 'AbortError');
 	} catch {
-		const error = new Error('The operation was aborted');
+		const error = new Error('La operación fue abortada');
 		error.name = 'AbortError';
 		return error;
 	}
@@ -214,7 +214,7 @@ export async function fetchData(
 		}
 	}
 
-	throw new ApiError(500, 'Failed to fetch data after retries');
+	throw new ApiError(500, 'Error al obtener datos después de reintentos');
 }
 
 export async function submitIngestion(
@@ -306,7 +306,7 @@ function exportFailureMessage(status: number, body: string): string {
 	if (status >= 500 && (!trimmed || /internal server error/i.test(trimmed))) {
 		return `Backend unavailable (HTTP ${status}) — it may be restarting. Try again in ~15 seconds.`;
 	}
-	return trimmed || 'Download failed';
+	return trimmed || 'Descarga falló';
 }
 
 export async function downloadDataset(symbol: string, timeframe: string, format: 'csv' | 'parquet' = 'csv'): Promise<Blob> {
@@ -502,7 +502,7 @@ export async function uploadCSV(
 	});
 
 	if (!response.ok) {
-		const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+		const error = await response.json().catch(() => ({ detail: 'Error desconocido' }));
 		throw new Error(error.detail || `HTTP ${response.status}`);
 	}
 
@@ -521,7 +521,7 @@ export async function previewCSV(file: File): Promise<CSVPreview> {
 	});
 
 	if (!response.ok) {
-		const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+		const error = await response.json().catch(() => ({ detail: 'Error desconocido' }));
 		throw new Error(error.detail || `HTTP ${response.status}`);
 	}
 

@@ -197,7 +197,7 @@
 						disabled={!canSave()}
 						on:click={handleSave}
 					>
-						{saving ? 'Guardando...' : 'Save'}
+						{saving ? 'Guardando...' : 'Guardar'}
 					</button>
 					<button
 						type="button"

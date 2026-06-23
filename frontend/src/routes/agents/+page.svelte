@@ -121,49 +121,49 @@
 	const fallbackAgentDefBase: Omit<AgentCard, 'ModeloLabel' | 'ModeloProvider' | 'ModeloId' | 'ModeloKey'>[] = [
 		{
 			id: 'quant-researcher',
-			Nombre: 'Quant Researcher',
+			Nombre: 'Investigador Cuantitativo',
 			icon: iconMap['quant-researcher'],
 			visibility: 'visible',
 			role: 'quant-researcher'
 		},
 		{
 			id: 'simulation-agent',
-			Nombre: 'Simulation Agent',
+			Nombre: 'Agente de Simulación',
 			icon: iconMap['simulation-agent'],
 			visibility: 'visible',
 			role: 'simulation-agent'
 		},
 		{
 			id: 'risk-manager',
-			Nombre: 'Risk Manager',
+			Nombre: 'Gestor de Riesgo',
 			icon: iconMap['risk-manager'],
 			visibility: 'visible',
 			role: 'risk-manager'
 		},
 		{
 			id: 'execution-trader',
-			Nombre: 'Execution Trader',
+			Nombre: 'Ejecutor de Trading',
 			icon: iconMap['execution-trader'],
 			visibility: 'visible',
 			role: 'execution-trader'
 		},
 		{
 			id: 'full-stack-engineer',
-			Nombre: 'Full Stack Engineer',
+			Nombre: 'Ingeniero Full Stack',
 			icon: iconMap['full-stack-engineer'],
 			visibility: 'visible',
 			role: 'full-stack-engineer'
 		},
 		{
 			id: 'strategy-developer',
-			Nombre: 'Strategy Developer',
+			Nombre: 'Desarrollador de Estrategias',
 			icon: iconMap['strategy-developer'],
 			visibility: 'visible',
 			role: 'strategy-developer'
 		},
 		{
 			id: 'brain',
-			Nombre: 'Brain',
+			Nombre: 'Cerebro',
 			icon: iconMap['quant-researcher'],
 			visibility: 'visible',
 			role: 'brain'
@@ -472,11 +472,11 @@
 				return !(entrySource === source && entryId === taskIdKey);
 			});
 			if (!silent) {
-				addToast('Task alert cleared', 'success');
+				addToast('Alerta de tarea eliminada', 'success');
 			}
 		} catch (err) {
 			if (!silent) {
-				const message = err instanceof Error ? err.message : 'Failed to clear task alert';
+				const message = err instanceof Error ? err.message : 'Error al eliminar alerta de tarea';
 				addToast(message, 'error');
 			}
 		}
@@ -1066,7 +1066,7 @@
 				return id === agent.id ? { ...item, ...updated } : item;
 			});
 			clearModeloSelection(agent.id);
-			addToast(`${agent.Nombre} Modelo updated`, 'success');
+			addToast(`${agent.Nombre} modelo actualizado`, 'success');
 		} catch (err) {
 			clearModeloSelection(agent.id);
 			const message = err instanceof Error ? err.message : 'Failed to update Modelo';
@@ -1159,7 +1159,7 @@
 			} else {
 				await fetchData();
 			}
-			addToast(`Added strategy developer "${Nombre}"`, 'success');
+			addToast(`Desarrollador de estrategias agregado "${Nombre}"`, 'success');
 			CancelarAddDeveloperForm();
 		} catch (err) {
 			const message = err instanceof Error ? err.message : 'Failed to add developer';
@@ -1179,7 +1179,7 @@
 		try {
 			await deleteForvenAgent(card.id);
 			agents = agents.filter((item) => String(item.id ?? '').trim() !== card.id);
-			addToast(`Removed "${card.Nombre}"`, 'success');
+			addToast(`Eliminado "${card.Nombre}"`, 'success');
 		} catch (err) {
 			const message = err instanceof Error ? err.message : 'Failed to remove developer';
 			addToast(message, 'error');
@@ -1257,7 +1257,7 @@
 				throw new Error(result?.error || 'Failed to save scheduler job');
 			}
 			await fetchData();
-			addToast('Scheduler job updated', 'success');
+			addToast('Tarea del programador actualizada', 'success');
 		} catch (err) {
 			const message = err instanceof Error ? err.message : 'Failed to save scheduler job';
 			addToast(message, 'error');
@@ -1432,10 +1432,10 @@
 									<button
 										type="button"
 										class="text-gray-500 hover:text-white"
-										aria-label="Clear Modelo error"
+										aria-label="Limpiar error de modelo"
 										on:click={() => clearModeloError(agent.id)}
 									>
-										Clear
+										Limpiar
 									</button>
 								</div>
 							{/if}
@@ -1470,7 +1470,7 @@
 									class="flex-1 min-w-0 bg-transparent border-b border-transparent focus:border-cyan-600 focus:outline-None text-sm font-bold text-gray-100 px-1 py-0.5 disabled:opacity-60"
 									type="text"
 									value={getReNombreDraft(agent)}
-									aria-label={`ReNombre ${agent.Nombre}`}
+									aria-label={`Renombrar ${agent.Nombre}`}
 									on:input={(event) => setReNombreDraft(agent.id, (event.currentTarget as HTMLInputElement).value)}
 									on:blur={() => handleReNombreCommit(agent)}
 									on:keydown={(event) => { if (event.key === 'Enter') (event.currentTarget as HTMLInputElement).blur(); }}
@@ -1479,8 +1479,8 @@
 								<button
 									type="button"
 									class="text-gray-500 hover:text-cyan-300 px-1 disabled:opacity-40"
-									aria-label={`Edit ${agent.Nombre}`}
-									title={isEditing ? 'Close editor' : 'Edit developer'}
+									aria-label={`Editar ${agent.Nombre}`}
+									title={isEditing ? 'Cerrar editor' : 'Editar desarrollador'}
 									on:click={() => (isEditing ? CancelarEditForm() : AbiertasEditForm(agent))}
 									disabled={editSavingId === agent.id}
 								>
@@ -1493,8 +1493,8 @@
 									<button
 										type="button"
 										class="text-gray-500 hover:text-red-400 px-1 disabled:opacity-40"
-										aria-label={`Remove ${agent.Nombre}`}
-										title="Remove developer"
+										aria-label={`Quitar ${agent.Nombre}`}
+										title="Quitar desarrollador"
 										on:click={() => handleRemoveDeveloper(agent)}
 										disabled={removingAgentId === agent.id}
 									>
@@ -1563,7 +1563,7 @@
 											class="px-2 py-0.5 text-[10px] uppercase tracking-wider border border-cyan-700 text-cyan-200 hover:bg-cyan-900/30 disabled:opacity-50"
 											disabled={editSavingId === agent.id}
 										>
-											{editSavingId === agent.id ? 'Guardando...' : 'Save'}
+											{editSavingId === agent.id ? 'Guardando...' : 'Guardar'}
 										</button>
 										<button
 											type="button"
@@ -1626,10 +1626,10 @@
 										<button
 											type="button"
 											class="text-gray-500 hover:text-white"
-											aria-label="Clear Modelo error"
+											aria-label="Limpiar error de modelo"
 											on:click={() => clearModeloError(agent.id)}
 										>
-											Clear
+											Limpiar
 										</button>
 									</div>
 								{/if}
@@ -1651,7 +1651,7 @@
 								type="text"
 								class="terminal-input mt-1 w-full"
 								bind:value={newDeveloperNombre}
-								placeholder="e.g. Two"
+								placeholder="ej: Dos"
 								disabled={submittingDeveloper}
 								maxlength="60"
 								autofocus
@@ -1824,13 +1824,13 @@
 					class={`px-6 py-2 text-sm font-bold tracking-wider uppercase transition-colors ${terminalTab === 'memory' ? 'text-green-400 border-b-2 border-green-400 bg-[#111]' : 'text-gray-500 hover:text-gray-300'}`}
 					on:click={() => (terminalTab = 'memory')}
 				>
-					Memory
+					Memoria
 				</button>
 				<button
 					class={`px-6 py-2 text-sm font-bold tracking-wider uppercase transition-colors ${terminalTab === 'logs' ? 'text-green-400 border-b-2 border-green-400 bg-[#111]' : 'text-gray-500 hover:text-gray-300'}`}
 					on:click={() => (terminalTab = 'logs')}
 				>
-					Logs
+					Registros
 				</button>
 				<button
 					class={`px-6 py-2 text-sm font-bold tracking-wider uppercase transition-colors ${terminalTab === 'mcp' ? 'text-green-400 border-b-2 border-green-400 bg-[#111]' : 'text-gray-500 hover:text-gray-300'}`}
@@ -1855,14 +1855,14 @@
 								on:click={() => void loadMCPGrantsView()}
 								disabled={mcpLoading}
 							>
-								{mcpLoading ? 'Loading…' : 'Refresh'}
+								{mcpLoading ? 'Loading…' : 'Actualizar'}
 							</button>
 						</div>
 						{#if mcpError}
 							<p class="text-xs text-red-400">{mcpError}</p>
 						{/if}
 						{#if mcpLoading && mcpGrants.length === 0 && mcpAllServers.length === 0}
-							<p class="text-xs text-gray-500">Loading MCP servers…</p>
+							<p class="text-xs text-gray-500">Cargando servidores MCP…</p>
 						{:else if mcpGrants.length === 0}
 							<p class="text-xs text-gray-500">
 								No se han concedido servidores MCP. The agent can only call tools from servers explicitly granted below.
@@ -1875,7 +1875,7 @@
 											<div class="font-moNo text-gray-200">{grant.server_Nombre}</div>
 											{#if grant.granted_at}
 												<div class="text-[10px] text-gray-500">
-													granted {grant.granted_at}{grant.granted_by ? ` by ${grant.granted_by}` : ''}
+													concedido {grant.granted_at}{grant.granted_by ? ` por ${grant.granted_by}` : ''}
 												</div>
 											{/if}
 										</div>
@@ -1885,7 +1885,7 @@
 											on:click={() => void handleRevokeMCP(grant.server_Nombre)}
 											disabled={mcpBusyServer === grant.server_Nombre}
 										>
-											{mcpBusyServer === grant.server_Nombre ? '…' : 'Revoke'}
+											{mcpBusyServer === grant.server_Nombre ? '…' : 'Revocar'}
 										</button>
 									</li>
 								{/each}
@@ -1898,11 +1898,11 @@
 							</h3>
 							{#if mcpAllServers.length === 0 && !mcpLoading}
 								<p class="text-xs text-gray-500">
-									No hay servidores MCP configurados. Add one at <a href="/integrations/mcp" class="text-blue-400 hover:underline">Integrations → MCP</a>.
+									No hay servidores MCP configurados. Agrega uno en <a href="/integrations/mcp" class="text-blue-400 hover:underline">Integraciones → MCP</a>.
 								</p>
 							{:else if ungranted.length === 0}
 								<p class="text-xs text-gray-500">
-									All configured servers are already granted to this agent.
+									Todos los servidores configurados ya tienen acceso a este agente.
 								</p>
 							{:else}
 								<ul class="space-y-1.5">
@@ -1911,7 +1911,7 @@
 											<div>
 												<div class="font-moNo text-gray-200">{srv.Nombre}</div>
 												<div class="text-[10px] text-gray-500">
-													{srv.transport} · {srv.enabled ? 'enabled' : 'disabled'}
+													{srv.transport} · {srv.enabled ? 'activado' : 'desactivado'}
 													{#if !srv.enabled}<span class="text-amber-400"> · grant will work but No tools register until enabled</span>{/if}
 												</div>
 											</div>
@@ -1921,7 +1921,7 @@
 												on:click={() => void handleGrantMCP(srv.Nombre)}
 												disabled={mcpBusyServer === srv.Nombre}
 											>
-												{mcpBusyServer === srv.Nombre ? '…' : 'Grant'}
+												{mcpBusyServer === srv.Nombre ? '…' : 'Conceder'}
 											</button>
 										</li>
 									{/each}

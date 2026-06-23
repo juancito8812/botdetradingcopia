@@ -130,19 +130,19 @@
 			class="flex items-center justify-between gap-4 border border-amber-700 bg-amber-900/30 text-amber-100 rounded px-4 py-3"
 			role="alert"
 		>
-			<span class="text-sm">Asistente incompleto — complete the onboarding wizard to finish setting up Forven.</span>
+			<span class="text-sm">Asistente incompleto — completa el asistente de configuración para terminar de configurar Forven.</span>
 			<button
 				type="button"
 				on:click={AbiertasWizard}
 				class="px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-white text-sm focus:outline-None focus-visible:ring-2 focus-visible:ring-amber-300"
 			>
-				Complete onboarding
+				Completar configuración
 			</button>
 		</div>
 	{/if}
 
 	{#if loading}
-		<p class="text-sm text-gray-400">Loading Configuración…</p>
+		<p class="text-sm text-gray-400">Cargando configuración…</p>
 	{:else if loadError && !Configuración}
 		<div class="border border-red-900 bg-red-950/40 rounded p-4">
 			<p class="text-sm text-red-200">Error al cargar Configuración: {loadError}</p>
@@ -186,7 +186,7 @@
 					Descartar cambios sin guardar?
 				</h2>
 				<p class="text-sm text-gray-400">
-					You have unsaved Configuración changes. Leaving this page will discard them.
+					Tienes cambios sin guardar. Si sales de esta página se perderán.
 				</p>
 				<div class="flex justify-end gap-2">
 					<button
@@ -194,7 +194,7 @@
 						on:click={CancelarLeave}
 						class="px-3 py-1.5 rounded border border-[#333] text-sm text-gray-300 hover:bg-[#161616] focus:outline-None focus-visible:ring-2 focus-visible:ring-gray-500"
 					>
-						Stay on page
+						Permanecer en página
 					</button>
 					<button
 						type="button"

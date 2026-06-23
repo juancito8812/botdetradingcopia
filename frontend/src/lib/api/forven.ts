@@ -1354,7 +1354,7 @@ export async function promoteForvenStrategy(
 	if (result?.ok === false) {
 		const message = typeof result.error === 'string' && result.error.trim()
 			? result.error.trim()
-			: 'Strategy transition failed';
+			: 'Transición de estrategia falló';
 		throw new Error(message);
 	}
 	return {

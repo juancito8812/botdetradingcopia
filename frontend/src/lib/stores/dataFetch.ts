@@ -35,7 +35,7 @@ export function setDataFetchAbortController(controller: AbortController | null) 
 export function startDataFetchTask(label: string, options?: { taskId?: string; isBulk?: boolean }): string {
 	const current = get(dataFetchState);
 	if (current.status === 'running') {
-		throw new Error('A data fetch is already running');
+		throw new Error('Ya hay una descarga de datos en ejecución');
 	}
 
 	const taskId = options?.taskId ?? `data-fetch-${Date.now()}`;

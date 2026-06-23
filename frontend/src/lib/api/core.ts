@@ -342,7 +342,7 @@ export async function fetchWithLimit(url: string, options: LimitedFetchOptions =
 function parseErrorPayload(raw: string): { detail: string; payload: unknown } {
 	const fallback = raw.trim();
 	if (!fallback) {
-		return { detail: 'Unknown error', payload: null };
+		return { detail: 'Error desconocido', payload: null };
 	}
 	try {
 		const parsed = JSON.parse(raw) as { detail?: unknown; message?: unknown; error?: unknown };
@@ -391,7 +391,7 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit & { ti
 				const rawError = await response.text().catch(() => '');
 				const parsed = parseErrorPayload(rawError);
 				let detail = parsed.detail || response.statusText || `HTTP ${response.status}`;
-				if (!detail || detail === 'Unknown error') {
+				if (!detail || detail === 'Error desconocido') {
 					detail = response.statusText || `HTTP ${response.status}`;
 				}
 				// HTTP responses are authoritative for this base; only retry on
@@ -420,7 +420,7 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit & { ti
 	if (lastError instanceof Error) {
 		throw lastError;
 	}
-	throw new Error('Request failed');
+	throw new Error('Solicitud fallida');
 }
 
 // Health check
@@ -441,16 +441,16 @@ export async function checkHealth(): Promise<{ status: string;[key: string]: unk
 				return payload;
 			}
 			if (isLast) {
-				throw new Error('Invalid health response');
+				throw new Error('Respuesta de salud inválida');
 			}
 			continue;
 		} catch {
-			if (isLast) throw new Error('Backend not reachable');
+			if (isLast) throw new Error('Backend no accesible');
 			continue;
 		}
 	}
 
-	throw new Error('Backend not reachable');
+	throw new Error('Backend no accesible');
 }
 
 export function asRecord(value: unknown): Record<string, unknown> | null {

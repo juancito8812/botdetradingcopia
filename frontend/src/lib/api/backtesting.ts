@@ -58,7 +58,7 @@ export async function previewSignals(request: {
 		});
 	} catch (error) {
 		if (isRouteMissingError(error)) {
-			throw new Error('Backend is missing `/api/backtests/preview`. Update/restart backend service on :8003.');
+			throw new Error('Falta el endpoint /api/backtests/preview en el backend. Actualiza/reinicia el servicio backend en :8003.');
 		}
 		throw error;
 	}
@@ -102,7 +102,7 @@ export async function submitBacktest(request: {
 		});
 	} catch (error) {
 		if (isRouteMissingError(error)) {
-			throw new Error('Backend is missing `/api/backtests`. Update/restart backend service on :8003.');
+			throw new Error('Falta el endpoint /api/backtests en el backend. Actualiza/reinicia el servicio backend en :8003.');
 		}
 		throw error;
 	}
@@ -134,7 +134,7 @@ export async function registerCustomStrategy(request: {
 		});
 	} catch (error) {
 		if (isRouteMissingError(error)) {
-			throw new Error('Backend is missing `/api/backtests/custom-strategy`. Update/restart backend service on :8003.');
+			throw new Error('Falta el endpoint /api/backtests/custom-strategy en el backend. Actualiza/reinicia el servicio backend en :8003.');
 		}
 		throw error;
 	}
@@ -169,7 +169,7 @@ export async function sendStrategyToForge(request: {
 		});
 	} catch (error) {
 		if (isRouteMissingError(error)) {
-			throw new Error('Backend is missing `/api/backtests/send-to-forge`. Update/restart backend service on :8003.');
+			throw new Error('Falta el endpoint /api/backtests/send-to-forge en el backend. Actualiza/reinicia el servicio backend en :8003.');
 		}
 		throw error;
 	}
@@ -453,7 +453,7 @@ export async function uploadStrategy(file: File): Promise<{ status: string; file
 	});
 
 	if (!response.ok) {
-		const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+		const error = await response.json().catch(() => ({ detail: 'Error desconocido' }));
 		throw new Error(error.detail || `HTTP ${response.status}`);
 	}
 
@@ -1344,7 +1344,7 @@ export async function runRobustnessAnalysis(
 			equity_paths_sample: monteCarlo.value.equity_paths,
 		};
 	} else {
-		payload.monte_carlo_error = monteCarlo.reason instanceof Error ? monteCarlo.reason.message : 'Monte Carlo failed';
+		payload.monte_carlo_error = monteCarlo.reason instanceof Error ? monteCarlo.reason.message : 'Monte Carlo falló';
 	}
 
 	if (regimes.status === 'fulfilled') {
@@ -1367,7 +1367,7 @@ export async function runRobustnessAnalysis(
 			),
 		};
 	} else {
-		payload.regime_error = regimes.reason instanceof Error ? regimes.reason.message : 'Regime split failed';
+		payload.regime_error = regimes.reason instanceof Error ? regimes.reason.message : 'División de régimen falló';
 	}
 
 	return payload;

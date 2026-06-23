@@ -523,7 +523,7 @@ export async function assignErrorToAgent(
 ): Promise<{ ok: boolean; task_id: number }> {
 	return fetchApi(`/pipeline/errors/${taskId}/assign`, {
 		method: 'POST',
-		body: JSON.stringify({ agent_id: agentId, reason: reason || 'Error investigation' }),
+		body: JSON.stringify({ agent_id: agentId, reason: reason || 'Investigación de error' }),
 	});
 }
 

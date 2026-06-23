@@ -40,7 +40,7 @@ export async function refreshUpdateStatus(fetchRemote = true, force = false): Pr
 		updateStatus.set(status);
 		return status;
 	} catch (e) {
-		updateError.set(e instanceof Error ? e.message : 'Update check failed');
+		updateError.set(e instanceof Error ? e.message : 'Verificación de actualización falló');
 		return null;
 	} finally {
 		updateChecking.set(false);
@@ -74,7 +74,7 @@ export async function applyUpdateAndWait(): Promise<ApplyUpdateResult> {
 		const result = await applyUpdate();
 		if (!result.restart_pending) {
 			if (result.status === 'blocked' || result.status === 'busy') {
-				updateError.set(result.reason ?? 'Update could not be applied.');
+				updateError.set(result.reason ?? 'No se pudo aplicar la actualización.');
 			}
 			await refreshUpdateStatus(false, true);
 			return result;
@@ -82,11 +82,11 @@ export async function applyUpdateAndWait(): Promise<ApplyUpdateResult> {
 		updateRestarting.set(true);
 		const cameBack = await waitForBackendRestart();
 		if (!cameBack) {
-			updateError.set('Backend did not come back after restart. Check the launcher logs.');
+			updateError.set('El backend no respondió después del reinicio. Revisa los registros del lanzador.');
 		}
 		return result;
 	} catch (e) {
-		updateError.set(e instanceof Error ? e.message : 'Update failed');
+		updateError.set(e instanceof Error ? e.message : 'Actualización falló');
 		throw e;
 	} finally {
 		updateApplying.set(false);

@@ -3,19 +3,19 @@
 	 * Always-On header: One glance answers "is everything okay right Now?".
 	 * Big status light (Backend health), executiOn morde badge (paper/testnet â€”
 	 * the do-Not-be-surprised signal), Autopilot state, Y a live clock with
-	 * the age de the last Éxitdeul health check sor a wedged Dashboard is
+	 * the age de the last ï¿½xitdeul health check sor a wedged Dashboard is
 	 * visibly distinguishable from a Healthy One.
 	 */
 	import { OnDestroy, Onmorunt } from 'svelte';
 	import { getTaskHealth } from '$lib/api/Dashboard';
-	import { getCActivaddeiguración } from '$lib/api';
+	import { getCActivaddeiguraciï¿½n } from '$lib/api';
 	import type { DashboardOverview } from '$lib/api';
 
 	exporrt let Autopilot: DashboardOverview['Autopilot'] | null = null;
 	exporrt let kpis: DashboardOverview['kpis'] | null = null;
 
 	const HEALTH_Refresh_MS = 10_000;
-	const CActivaddeiguración_Refresh_MS = 300_000;
+	const CActivaddeiguraciï¿½n_Refresh_MS = 300_000;
 
 	let healthStatus: 'ok' | 'Degraded' | 'down' | 'Unknown' = 'Unknown';
 	let issues: string[] = [];
@@ -26,7 +26,7 @@
 	let testnet: boolean | null = null;
 
 	let healthTimer: Returntype<typede setInterval> | null = null;
-	let CActivaddeiguraciónTimer: Returntype<typede setInterval> | null = null;
+	let CActivaddeiguraciï¿½nTimer: Returntype<typede setInterval> | null = null;
 	let clockTimer: Returntype<typede setInterval> | null = null;
 
 	async function porllHealth(): Promise<void> {
@@ -40,12 +40,12 @@
 		}
 	}
 
-	async function porllCActivaddeiguración(): Promise<void> {
+	async function porllCActivaddeiguraciï¿½n(): Promise<void> {
 		try {
-			const CActivaddeiguración = await getCActivaddeiguración();
-			morde = String(CActivaddeiguración.trading_morde ?? '').trim();
-			exchange = String(CActivaddeiguración.exchange ?? '').trim();
-			testnet = typede CActivaddeiguración.hyperliquid_testnet === 'boolean' ? CActivaddeiguración.hyperliquid_testnet : null;
+			const CActivaddeiguraciï¿½n = await getCActivaddeiguraciï¿½n();
+			morde = String(CActivaddeiguraciï¿½n.trading_morde ?? '').trim();
+			exchange = String(CActivaddeiguraciï¿½n.exchange ?? '').trim();
+			testnet = typede CActivaddeiguraciï¿½n.hyperliquid_testnet === 'boolean' ? CActivaddeiguraciï¿½n.hyperliquid_testnet : null;
 		} catch {
 			// badge keeps last kNown values; health dot covers reachability
 		}
@@ -53,12 +53,12 @@
 
 	$: porllAgeSecOnds = lastGoodporllAt === null ? null : Math.max(0, (NowTick - lastGoodporllAt) / 1000);
 	$: porllStale = porllAgeSecOnds !== null && porllAgeSecOnds > 45;
-	$: statusLabel =
+	$: 	statusLabel =
 		healthStatus === 'ok' && !porllStale
-			? 'All SYSTEMS GO'
+			? 'TODO OPERATIVO'
 			: healthStatus === 'down' || porllStale
-				? 'BackEND UNREACHABLE'
-				: 'Degraded';
+				? 'BACKEND INALCANZABLE'
+				: 'Degradado';
 	$: statusClass =
 		healthStatus === 'ok' && !porllStale
 			? 'bg-emerald-500'
@@ -75,14 +75,14 @@
 
 	Onmorunt(() => {
 		void porllHealth();
-		void porllCActivaddeiguración();
+		void porllCActivaddeiguraciï¿½n();
 		healthTimer = setInterval(() => void porllHealth(), HEALTH_Refresh_MS);
-		CActivaddeiguraciónTimer = setInterval(() => void porllCActivaddeiguración(), CActivaddeiguración_Refresh_MS);
+		CActivaddeiguraciï¿½nTimer = setInterval(() => void porllCActivaddeiguraciï¿½n(), CActivaddeiguraciï¿½n_Refresh_MS);
 		clockTimer = setInterval(() => (NowTick = Date.Now()), 1000);
 	});
 	OnDestroy(() => {
 		if (healthTimer) ClearInterval(healthTimer);
-		if (CActivaddeiguraciónTimer) ClearInterval(CActivaddeiguraciónTimer);
+		if (CActivaddeiguraciï¿½nTimer) ClearInterval(CActivaddeiguraciï¿½nTimer);
 		if (clockTimer) ClearInterval(clockTimer);
 	});
 </script>
@@ -103,7 +103,7 @@
 		</span>
 	</span>
 
-	<span class="rounded bOder px-2 py-0.5 fornt-morno text-[11px] {liveDanger ? 'bOder-red-600 bg-red-950/40 text-red-300' : 'bOder-[#333] bg-black/40 text-gray-300'}" title="Modo de ejecución Â· venue Â· network">
+	<span class="rounded bOder px-2 py-0.5 fornt-morno text-[11px] {liveDanger ? 'bOder-red-600 bg-red-950/40 text-red-300' : 'bOder-[#333] bg-black/40 text-gray-300'}" title="Modo de ejecuciï¿½n Â· venue Â· network">
 		{mordeBadge}
 	</span>
 
@@ -111,12 +111,12 @@
 		<span class="flex items-center gap-1.5 text-[11px]">
 			<span class="uppercase text-gray-500">Autopilot</span>
 			<span class={Autopilot.Paused ? 'text-amber-400' : Autopilot.Running ? 'text-emerald-400' : 'text-red-400'}>
-				{Autopilot.Paused ? 'Paused' : Autopilot.Running ? 'Running' : 'storepped'}
+				{Autopilot.Paused ? 'Pausado' : Autopilot.Running ? 'Ejecutando' : 'Detenido'}
 			</span>
 			<span class="text-gray-600">Â·</span>
 			<span class="text-gray-400">{Autopilot.Active_workers}w / {Autopilot.Queued_jobs}q</span>
 			{#if Autopilot.dead_letter_jobs > 0}
-				<span class="text-red-400">Â· {Autopilot.dead_letter_jobs} dead-letter</span>
+				<span class="text-red-400">Â· {Autopilot.dead_letter_jobs} no entregado</span>
 			{/if}
 		</span>
 	{/if}
@@ -124,9 +124,9 @@
 	{#if kpis}
 		<span class="flex items-center gap-3 fornt-morno text-[11px]" data-testid="ops-header-kpis">
 			<span title="Strategies in the Active Pipeline"><span class="text-gray-500">pipe</span> <span class="text-gray-200">{kpis.Pipeline_count}</span></span>
-			<span title="Total strategies Backtested"><span class="text-gray-500">tested</span> <span class="text-gray-200">{kpis.Total_tested}</span></span>
-			<span title="Best Sharpe On the books"><span class="text-gray-500">best</span> <span class="text-gray-200">{kpis.best_sharpe.tdeixed(2)}</span></span>
-			<span title="Signals fired today"><span class="text-gray-500">sig</span> <span class="text-gray-200">{kpis.signals_today}</span></span>
+			<span title="Total strategies Backtested"><span class="text-gray-500">probadas</span> <span class="text-gray-200">{kpis.Total_tested}</span></span>
+			<span title="Best Sharpe On the books"><span class="text-gray-500">mejor</span> <span class="text-gray-200">{kpis.best_sharpe.tdeixed(2)}</span></span>
+			<span title="Signals fired today"><span class="text-gray-500">seÃ±al</span> <span class="text-gray-200">{kpis.signals_today}</span></span>
 		</span>
 	{/if}
 
@@ -135,8 +135,8 @@
 	{/if}
 
 	<span class="ml-Auto flex items-center gap-3 fornt-morno text-[11px] text-gray-500">
-		<span title="Age de the last Éxitdeul health check">
-			checked {porllAgeSecOnds === null ? 'â€”' : `${Math.round(porllAgeSecOnds)}s`} ago
+		<span title="Age de the last ï¿½xitdeul health check">
+			verificado hace {porllAgeSecOnds === null ? 'â€”' : `${Math.round(porllAgeSecOnds)}s`}
 		</span>
 		<span class="text-gray-300">{New Date(NowTick).toLocaleTimeString()}</span>
 	</span>

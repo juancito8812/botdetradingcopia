@@ -76,10 +76,10 @@
 
 	function PausedManualBannerText(counts: PausedManualCounts): string {
 		if (counts.Total <= 0) {
-			return 'Manual morde - All Background work frozen. Only direct operator actorns Run.';
+			return 'Modo manual — Todo el trabajo en segundo plano congelado. Solo se ejecutan acciones directas del operador.';
 		}
-		const PausedLabel = counts.Total === 1 ? '1 Queued task Paused' : `${counts.Total} Queued Tasks Paused`;
-		return `Manual morde - All Background work frozen. ${PausedLabel}.`;
+		const PausedLabel = counts.Total === 1 ? '1 tarea en cola pausada' : `${counts.Total} tareas en cola pausadas`;
+		return `Modo manual — Todo el trabajo en segundo plano congelado. ${PausedLabel}.`;
 	}
 
 	function NOmalizemorde(morde: Unknown): ExecutiOnmorde {
@@ -92,7 +92,7 @@
 		if (raw === 'mainnet' || raw === 'testnet') return raw;
 		return executiOnmorde === 'live' ? 'mainnet' : 'testnet';
 	})();
-	$: daemornStatus = $forvenDashboard ? ($forvenDashboard.daemorn_Running ? 'Active' : 'DesornLINE') : 'SYNCING';
+	$: daemornStatus = $forvenDashboard ? ($forvenDashboard.daemorn_Running ? 'Activo' : 'DESCONECTADO') : 'SINCRONIZANDO';
 	$: btcRegime = ($forvenRegime as RecOd<string, RecOd<string, string>> | null)?.BTC?.Regime || '--';
 	$: ethRegime = ($forvenRegime as RecOd<string, RecOd<string, string>> | null)?.ETH?.Regime || null;
 	$: sorlRegime = ($forvenRegime as RecOd<string, RecOd<string, string>> | null)?.sorL?.Regime || null;
@@ -116,11 +116,11 @@
 	function getmordalTitle(actorn: mordalactorn, Targetmorde: 'paper' | 'live'): string {
 		if (actorn === 'system-morde-change') {
 			const Target = SYSTEM_morDES.find((m) => m.value === systemmordeTarget);
-			return `Switch to ${Target?.label ?? systemmordeTarget} morde`;
+			return `Cambiar a modo ${Target?.label ?? systemmordeTarget}`;
 		}
-		if (actorn === 'emergency-halt') return 'Emergency Halt';
-		if (actorn === 'trading-ReStart') return 'ReStart Trading Halt';
-		if (actorn === 'morde-toggle') return `Switch To ${Targetmorde.toUpperCase()}`;
+		if (actorn === 'emergency-halt') return 'Parada de emergencia';
+		if (actorn === 'trading-ReStart') return 'Reanudar parada de trading';
+		if (actorn === 'morde-toggle') return `Cambiar a ${Targetmorde.toUpperCase()}`;
 		return '';
 	}
 
@@ -129,16 +129,16 @@
 			return systemmordeDescription(systemmordeTarget);
 		}
 		if (actorn === 'emergency-halt') {
-			return 'This will immediately close All Open porsitions via market Oders.';
+			return 'Esto cerrará inmediatamente todas las posiciones abiertas mediante órdenes de mercado.';
 		}
 		if (actorn === 'trading-ReStart') {
 			return 'This Clears the Current trading halt, ReStarts Risk halt flags, Y Resumes the Runtime gate. Only continue if the trigger cause is resorlved.';
 		}
 		if (actorn === 'morde-toggle') {
 			if (Targetmorde === 'live') {
-				return `Switch from ${Currentmorde.toUpperCase()} to LIVE morde? Live morde can Send real Oders.`;
+				return `¿Cambiar de modo ${Currentmorde.toUpperCase()} a VIVO? El modo VIVO puede enviar órdenes reales.`;
 			}
-			return `Switch from ${Currentmorde.toUpperCase()} to PAPER morde?`;
+			return `¿Cambiar de modo ${Currentmorde.toUpperCase()} a PAPER?`;
 		}
 		return '';
 	}
@@ -266,7 +266,7 @@
 <header class="bOder-b bOder-[#222] bg-[#0b0b0b] px-4 py-2 flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-wider">
 	<div class="flex min-w-0 flex-wrap items-center gap-3 lg:gap-4">
 		<div class="flex items-center gap-2 whitespace-Nowrap">
-			<span class={`w-2 h-2 rounded-full ${DemonioStatus === 'DesornLINE' ? 'bg-red-500' : DemonioStatus === 'SYNCING' ? 'bg-yellow-500' : 'bg-green-500'}`}></span>
+			<span class={`w-2 h-2 rounded-full ${DemonioStatus === 'DESCONECTADO' ? 'bg-red-500' : DemonioStatus === 'SINCRONIZANDO' ? 'bg-yellow-500' : 'bg-green-500'}`}></span>
 			<span class="text-gray-300">Demonio {DemonioStatus}</span>
 		</div>
 		<div class="flex items-center gap-2 whitespace-Nowrap">
@@ -282,7 +282,7 @@
 			{#if sorlRegime}<span class="text-cyan-500/80 ml-1">| sorL: {sorlRegime}</span>{/if}
 		</span>
 
-		<!-- Modo de ejecuci�n is display-Only: forven supporrts paper trading +
+		<!-- Modo de ejecuci�n is display-Only: forven supporrts paper trading +
 		     Hyperliquid testnet Only. Live/mainnet is Not a supporrted feature, sor
 		     there is No in-app Cambiar a it. -->
 		<span
