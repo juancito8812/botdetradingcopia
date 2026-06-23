@@ -1,4 +1,6 @@
-# Forven
+# Bot de Trading Copia — Forven en Español
+
+**Traducción completa al español del proyecto Forven.** Fork con toda la interfaz, documentación, scripts y mensajes del backend en español.
 
 **Forven es un espacio de trabajo gratuito, open-source y auto-alojado para investigación y operaciones de trading de criptomonedas.** Combina un equipo de agentes de IA con un motor de backtesting, un "calvario" de robustez, paper trading y un panel de operador — para que la generación de ideas, validación y monitoreo vivan en un solo repositorio que ejecutas en tu propia máquina.
 
